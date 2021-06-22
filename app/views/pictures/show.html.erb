@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>タイトル:</strong>
+  <%= @picture.title %>
+</p>
+
+<p>
+  <strong>内容:</strong>
+  <%= @picture.content %>
+</p>
+
+<%= link_to '編集しなおす', edit_picture_path(@picture) %> |
+<%= link_to '登録する', pictures_path %>
