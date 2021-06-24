@@ -1,5 +1,6 @@
 class PicturesController < ApplicationController
   before_action :set_picture, only: [ :show ,:edit, :update, :destroy]
+  before_action :login_check, only:[:edit,:destroy]
   def index
     @pictures = Picture.all
   end
@@ -10,7 +11,8 @@ class PicturesController < ApplicationController
 
   def create
     @picture = Picture.new(picture_params)
-    if params[:back]
+    @picture.user_id = current_user.id
+      if params[:back]
       render :new
     else
       if @picture.save
@@ -23,6 +25,7 @@ class PicturesController < ApplicationController
 
 
   def show
+    @favorite = current_user.favorites.find_by(picture_id: @picture.id)
   end
 
   def edit
@@ -38,6 +41,8 @@ class PicturesController < ApplicationController
 
   def confirm
     @picture = Picture.new(picture_params)
+    @picture.user_id = current_user.id
+     render :new if @picture.invalid?
   end
 
   def destroy
@@ -52,7 +57,15 @@ class PicturesController < ApplicationController
       @picture = Picture.find(params[:id])
   end
 
+  def login_check
+    unless Picture.find(params[:id]).user_id == current_user.id
+      flash[:alert]="ログインしてください"
+      redirect_to new_session_path
+    end
+  end
+
+
   def picture_params
-      params.require(:picture).permit(:title, :content)
+      params.require(:picture).permit(:title, :content, :img, :img_cache)
   end
 end
