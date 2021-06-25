@@ -1,7 +1,8 @@
 <h1>お気に入り一覧</h1>
 <% @favorites.each do |favorite| %>
+  <td><%= image_tag(favorite.picture.img.url) if favorite.picture.img && favorite.picture.img.url %></td>
   <p><%= favorite.picture.title %></p>
   <p><%= favorite.picture.content %></p>
-  <p><%= favorite.user.name%></p>
+  <p><%= favorite.picture.user.name%></p>
 <p><%= link_to '戻る', picture_path(favorite.picture.id) %></p>
 <%end%>
