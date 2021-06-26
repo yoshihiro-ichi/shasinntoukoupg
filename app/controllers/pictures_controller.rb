@@ -24,7 +24,6 @@ class PicturesController < ApplicationController
     end
   end
 
-
   def show
     @favorite = current_user.favorites.find_by(picture_id: @picture.id)
   end
@@ -51,7 +50,6 @@ class PicturesController < ApplicationController
       redirect_to pictures_path
   end
 
-
   private
 
   def set_picture
@@ -64,7 +62,6 @@ class PicturesController < ApplicationController
       redirect_to new_session_path
     end
   end
-
 
   def picture_params
       params.require(:picture).permit(:title, :content, :img, :img_cache)
