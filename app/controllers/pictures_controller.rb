@@ -12,7 +12,7 @@ class PicturesController < ApplicationController
   def create
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
-      if params[:back]
+    if params[:back]
       render :new
     else
       if @picture.save
@@ -42,18 +42,18 @@ class PicturesController < ApplicationController
   def confirm
     @picture = Picture.new(picture_params)
     @picture.user_id = current_user.id
-     render :new if @picture.invalid?
+    render :new if @picture.invalid?
   end
 
   def destroy
-     @picture.destroy
-      redirect_to pictures_path
+    @picture.destroy
+    redirect_to pictures_path
   end
 
   private
 
   def set_picture
-      @picture = Picture.find(params[:id])
+    @picture = Picture.find(params[:id])
   end
 
   def login_check
@@ -64,6 +64,6 @@ class PicturesController < ApplicationController
   end
 
   def picture_params
-      params.require(:picture).permit(:title, :content, :img, :img_cache)
+    params.require(:picture).permit(:title, :content, :img, :img_cache)
   end
 end
